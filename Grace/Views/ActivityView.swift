@@ -92,11 +92,11 @@ struct ActivityView: View {
                        .colorMultiply(.black)
                        .frame(width: 195, height: 195)
                    
-                   RingView(ring: Ring(id: 1, wh: 130, target: CGFloat(goalForCalories), done: CGFloat(manager.caloriesToday), progress: 5, c1: "ColorCalories", c2: "ColorDarkBlue"), show: $show)
+                   RingView(ring: Ring(id: 1, wh: 130, target: CGFloat(goalForCalories), done: CGFloat(manager.caloriesToday), c1: "ColorCalories", c2: "ColorDarkBlue"), show: $show)
                       
                    
                    
-                   RingView(ring: Ring(id: 0, wh: 176, target: CGFloat(goalForSteps), done: CGFloat(manager.stepsToday), progress: 5, c1: "ColorSteps", c2: "ColorDarkGreen"), show: $show)
+                   RingView(ring: Ring(id: 0, wh: 176, target: CGFloat(goalForSteps), done: CGFloat(manager.stepsToday), c1: "ColorSteps", c2: "ColorDarkGreen"), show: $show)
                      
                    
                   

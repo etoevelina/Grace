@@ -18,4 +18,8 @@ struct FirebaseConstants {
     static let surname = "surname"
     static let time = "time"
     static let date = "date"
+    static let profileImageUrl = "profileImageUrl"
+    static let role = "role"
+    static let traners = "traners"
+    static let description = "description"
 }

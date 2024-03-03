@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import RiveRuntime
 
 struct RoundedCornerShape: Shape { // 1
     let radius: CGFloat
@@ -27,7 +26,6 @@ struct AuthView: View {
     let didCompleteLoginProcess: () -> Void
     @State private var email = ""
     @State private var password = ""
-    @StateObject var riveModel = RiveViewModel(fileName: "darkAnimation")
     @State private var alertMessage = ""
     @State var shouldShowAler = false
     
@@ -46,10 +44,7 @@ struct AuthView: View {
                     .frame(width: 393, height: 852)
                     .edgesIgnoringSafeArea(.all)
                 
-                //            riveModel.view()
-                //                .ignoresSafeArea()
-                //                .blur(radius: 150)
-                
+               
                 
                 
                 VStack {

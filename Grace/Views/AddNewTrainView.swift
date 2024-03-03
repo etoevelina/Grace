@@ -18,6 +18,8 @@ struct Training: Identifiable, Codable {
     var time: Date
     var amountOfPeople: Int
     var description: String
+    var trainerSurname: String
+
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -26,6 +28,7 @@ struct Training: Identifiable, Codable {
         case time
         case amountOfPeople
         case description
+        case trainerSurname
     }
 }
 
@@ -99,18 +102,23 @@ struct AddNewTrainView: View {
     @State private var name: Trains = .stretching
     @State private var description: Descriptions = .stretching
     @Environment(\.presentationMode) var presentationMode
+    @StateObject private var viewModel = MainPageViewViewModel()
+    @State private var selectedTrainerIndex = 0
+    @State var showAlert = false
+    @State var alertMessage = ""
     
     var body: some View {
-        NavigationView{
+
             ZStack {
               
                 
                 
                 VStack {
-                    Text("Добавление тренировки")
-                        .font(.system(size: 35, weight: .bold))
-                        .multilineTextAlignment(.leading)
-                        .padding(.trailing, 100)
+//                    Text("Добавление тренировки")
+//                        .font(.system(size: 35, weight: .bold))
+//                        .multilineTextAlignment(.leading)
+//                        .padding(.trailing, 100)
+                    
                     
                     Form {
                         HStack {
@@ -153,7 +161,15 @@ struct AddNewTrainView: View {
                                 .labelsHidden()
                         }
                         
-                        Text("Тренер:")
+                        Picker("Тренер:", selection: $selectedTrainerIndex) {
+                                           ForEach(viewModel.trainerLastNames.indices, id: \.self) { index in
+                                               Text(viewModel.trainerLastNames[index])
+                                           }
+                                       }
+                                       .onAppear {
+                                           // Получаем список тренеров при загрузке представления
+                                           viewModel.getUsersWithRoleTrainer()
+                                       }
                         
                         HStack {
                             //Text("Описание:")
@@ -173,32 +189,33 @@ struct AddNewTrainView: View {
                                     .tag(String(num))
                             }
                         }
-                    }
-
-                    
-                    Button {
-                        addTraining()
-                    } label: {
-                        Text("Добавить ")
+                        HStack{
+                            Spacer()
+                            Button {
+                                addTraining()
+                            } label: {
+                                Text("Добавить ")
+                                
+                            }
+                            .alert(isPresented: $showAlert) {
+                                Alert(title: Text("Сохранение данных"), message: Text(alertMessage), dismissButton: .default(Text("ОК")))
+                            }
+                           Spacer()
+                        }
                     }
                 }
-                
-                
             }
             .preferredColorScheme(.dark)
             
         }
-        
-    }
- 
-    
+
     func addTraining() {
         
         guard let amount = Int(amountOfPeople) else {
                 print("Невозможно преобразовать количество людей в число")
                 return
             }
-        // Создаем экземпляр тренировки
+        let selectedTrainerSurname = viewModel.trainerLastNames[selectedTrainerIndex]
         let db = Firestore.firestore()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -213,13 +230,18 @@ struct AddNewTrainView: View {
                 "дата": dateString,
                 "время": timeString,
                 "Количество человек": amount,
+                "Тренер": selectedTrainerSurname,
                 "описание": description.fullText,
                // "тренер": trainer
             ]) { err in
                 if let err = err {
                     print("Ошибка добавления тренировки: \(err)")
+                    showAlert = true
+                    alertMessage = "Ошибка добавления тренировки: \(err)"
                 } else {
                     print("Тренировка успешно добавлена")
+                    showAlert = true
+                    alertMessage = "Тренировка успешно добавлена"
                 }
             }
     }

@@ -12,7 +12,6 @@ struct Ring {
     let wh: CGFloat
     let target: CGFloat
     let done: CGFloat
-    let progress: CGFloat
     let c1: String
     let c2: String
 
@@ -45,5 +44,5 @@ struct RingView: View {
 }
 
 #Preview {
-    RingView(ring: Ring(id: 0, wh: 176, target: 10000, done: 8000, progress: 5, c1: "ColorCalories", c2: "ColorDarkBlue"), show: .constant(true))
+    RingView(ring: Ring(id: 0, wh: 176, target: 10000, done: 8000, c1: "ColorCalories", c2: "ColorDarkBlue"), show: .constant(true))
 }

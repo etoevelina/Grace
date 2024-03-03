@@ -9,5 +9,5 @@ import FirebaseFirestoreSwift
 
 struct User: Codable, Identifiable {
     @DocumentID var id: String?
-    var uid, email, name, surname: String
+    var uid, email, name, surname, role, description: String
 }
