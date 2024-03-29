@@ -27,6 +27,9 @@
 		0A5CD2E12B7394C200CD701E /* GraceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CD2E02B7394C200CD701E /* GraceUITests.swift */; };
 		0A5CD2E32B7394C200CD701E /* GraceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5CD2E22B7394C200CD701E /* GraceUITestsLaunchTests.swift */; };
 		0A5CD2F12B73952A00CD701E /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 0A5CD2F02B73952A00CD701E /* RiveRuntime */; };
+		0A69B02B2BBAEDA100E345B7 /* AddNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69B02A2BBAEDA100E345B7 /* AddNewsView.swift */; };
+		0A69B02D2BBC164000E345B7 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69B02C2BBC164000E345B7 /* New.swift */; };
+		0A69B02F2BBC1B6200E345B7 /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69B02E2BBC1B6200E345B7 /* NewsView.swift */; };
 		0A8376D22B7B74F000AF009D /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8376D12B7B74F000AF009D /* ActivityCard.swift */; };
 		0A8376D42B7B772D00AF009D /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8376D32B7B772D00AF009D /* ActivityView.swift */; };
 		0A8376D62B7B791200AF009D /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8376D52B7B791200AF009D /* HealthManager.swift */; };
@@ -46,8 +49,6 @@
 		0ACF71312B74AE9F003FA449 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACF71302B74AE9F003FA449 /* MenuView.swift */; };
 		0ACF71332B74AEF6003FA449 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACF71322B74AEF5003FA449 /* ProfileView.swift */; };
 		0ACF71352B74B8E2003FA449 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACF71342B74B8E2003FA449 /* ScheduleView.swift */; };
-		0ACF71382B753168003FA449 /* animation.riv in Resources */ = {isa = PBXBuildFile; fileRef = 0ACF71372B753168003FA449 /* animation.riv */; };
-		0ACF713A2B753CDF003FA449 /* darkAnimation.riv in Resources */ = {isa = PBXBuildFile; fileRef = 0ACF71392B753CDE003FA449 /* darkAnimation.riv */; };
 		0AEC6CCD2B837DD500074398 /* AddNewTrainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEC6CCC2B837DD500074398 /* AddNewTrainView.swift */; };
 		0AF8DE1D2BB1BE8700E0A3BC /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 0AF8DE1C2BB1BE8700E0A3BC /* SDWebImageSwiftUI */; };
 		0AF8DE212BB470F000E0A3BC /* TrainerViewCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8DE202BB470F000E0A3BC /* TrainerViewCarouselView.swift */; };
@@ -93,6 +94,9 @@
 		0A5CD2DC2B7394C200CD701E /* GraceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5CD2E02B7394C200CD701E /* GraceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraceUITests.swift; sourceTree = "<group>"; };
 		0A5CD2E22B7394C200CD701E /* GraceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraceUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0A69B02A2BBAEDA100E345B7 /* AddNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewsView.swift; sourceTree = "<group>"; };
+		0A69B02C2BBC164000E345B7 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		0A69B02E2BBC1B6200E345B7 /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		0A8376D12B7B74F000AF009D /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		0A8376D32B7B772D00AF009D /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		0A8376D52B7B791200AF009D /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
@@ -105,8 +109,6 @@
 		0ACF71302B74AE9F003FA449 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		0ACF71322B74AEF5003FA449 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0ACF71342B74B8E2003FA449 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
-		0ACF71372B753168003FA449 /* animation.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = animation.riv; sourceTree = "<group>"; };
-		0ACF71392B753CDE003FA449 /* darkAnimation.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = darkAnimation.riv; sourceTree = "<group>"; };
 		0AEC6CCC2B837DD500074398 /* AddNewTrainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTrainView.swift; sourceTree = "<group>"; };
 		0AF8DE202BB470F000E0A3BC /* TrainerViewCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainerViewCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				0AF8DE202BB470F000E0A3BC /* TrainerViewCarouselView.swift */,
 				0A40382B2B739DBA0058B416 /* RegView.swift */,
 				0A879C272B9CB67A009607D5 /* RegAuthView.swift */,
+				0A69B02E2BBC1B6200E345B7 /* NewsView.swift */,
 				0A8D87502B73B19F0077ACCF /* MainPageView.swift */,
 				0ACF71302B74AE9F003FA449 /* MenuView.swift */,
 				0ACF71322B74AEF5003FA449 /* ProfileView.swift */,
@@ -162,6 +165,7 @@
 				0ACF71342B74B8E2003FA449 /* ScheduleView.swift */,
 				0ABE39542B8DFBE700E670D8 /* TrainView.swift */,
 				0AEC6CCC2B837DD500074398 /* AddNewTrainView.swift */,
+				0A69B02A2BBAEDA100E345B7 /* AddNewsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -169,6 +173,7 @@
 		0A4038262B7399730058B416 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0A1FA0C02BB6C0BE0032B7AE /* ScheduleViewViewModel.swift */,
 				0A8376D82B7BB43D00AF009D /* MainManager.swift */,
 				0A8376D52B7B791200AF009D /* HealthManager.swift */,
 				0A4038272B7399880058B416 /* FirebaseManager.swift */,
@@ -202,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				0A5CD2C52B7394C000CD701E /* GraceApp.swift */,
-				0ACF71362B753151003FA449 /* RIva */,
 				0A8D874D2B73AE500077ACCF /* Models */,
 				0A4038262B7399730058B416 /* Utils */,
 				0A1FA0BF2BB6BFEC0032B7AE /* Views */,
@@ -247,18 +251,9 @@
 				0A1DA51F2B7F754B00174D65 /* ScheduleCard.swift */,
 				0A51C9EA2B7D4C870010C8AF /* RingView.swift */,
 				0A8376D12B7B74F000AF009D /* ActivityCard.swift */,
-				0A1FA0C02BB6C0BE0032B7AE /* ScheduleViewViewModel.swift */,
+				0A69B02C2BBC164000E345B7 /* New.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		0ACF71362B753151003FA449 /* RIva */ = {
-			isa = PBXGroup;
-			children = (
-				0ACF71372B753168003FA449 /* animation.riv */,
-				0ACF71392B753CDE003FA449 /* darkAnimation.riv */,
-			);
-			path = RIva;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -380,8 +375,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ACF71382B753168003FA449 /* animation.riv in Resources */,
-				0ACF713A2B753CDF003FA449 /* darkAnimation.riv in Resources */,
 				0A5CD2CD2B7394C200CD701E /* Preview Assets.xcassets in Resources */,
 				0A40382A2B739A790058B416 /* GoogleService-Info.plist in Resources */,
 				0A5CD2CA2B7394C200CD701E /* Assets.xcassets in Resources */,
@@ -412,6 +405,7 @@
 				0A40382E2B73A38E0058B416 /* FirebaseConstans.swift in Sources */,
 				0ACF71332B74AEF6003FA449 /* ProfileView.swift in Sources */,
 				0A8376D42B7B772D00AF009D /* ActivityView.swift in Sources */,
+				0A69B02F2BBC1B6200E345B7 /* NewsView.swift in Sources */,
 				0A2CBF722BA5D6E50021B784 /* Traner.swift in Sources */,
 				0ACF71312B74AE9F003FA449 /* MenuView.swift in Sources */,
 				0AF8DE212BB470F000E0A3BC /* TrainerViewCarouselView.swift in Sources */,
@@ -426,9 +420,11 @@
 				0A2CBF742BA5D75C0021B784 /* TranerReg.swift in Sources */,
 				0A8D874F2B73AE6A0077ACCF /* User.swift in Sources */,
 				0A8376D22B7B74F000AF009D /* ActivityCard.swift in Sources */,
+				0A69B02B2BBAEDA100E345B7 /* AddNewsView.swift in Sources */,
 				0AEC6CCD2B837DD500074398 /* AddNewTrainView.swift in Sources */,
 				0A40382C2B739DBB0058B416 /* RegView.swift in Sources */,
 				0A96354A2B8764E100C4C52A /* TrainingSession.swift in Sources */,
+				0A69B02D2BBC164000E345B7 /* New.swift in Sources */,
 				0A879C282B9CB67A009607D5 /* RegAuthView.swift in Sources */,
 				0A2CBF762BA8CD440021B784 /* SwiftUIView.swift in Sources */,
 				0ABE39552B8DFBE800E670D8 /* TrainView.swift in Sources */,

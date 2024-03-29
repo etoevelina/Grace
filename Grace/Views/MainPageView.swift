@@ -100,10 +100,9 @@ struct MainPageView: View {
                         
                         
                         VStack{
-                            Button {
-                                
-                            } label: {
-                                ZStack{
+                            NavigationLink(destination: 
+                                            NewsView()) {
+                                ZStack {
                                     Image("ButtonLeft")
                                         .resizable()
                                         .frame(width: 150, height: 150)
@@ -127,9 +126,8 @@ struct MainPageView: View {
                                 }
                                 
                             }
-                        }
-                    } .padding(.top, 11)
-                    
+                        } .padding(.top, 11)
+                    }
                 }
             }
         }

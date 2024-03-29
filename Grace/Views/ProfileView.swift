@@ -89,8 +89,8 @@ struct ProfileView: View {
         NavigationLink("Добавить пользователя"){
             RegView()
         }
-        NavigationLink("Статистика посещений"){
-            
+        NavigationLink("Добавить новость"){
+            AddNewsView()
         }
                         
     }
@@ -115,13 +115,13 @@ struct ProfileView: View {
                     ])
                 }
             //Раскомментировать перед использоанием!!!!
-//                .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: {
-//                    self.vm.fetchCurrentUser()
-//                }) {
-//                    AuthView(didCompleteLoginProcess: {
-//                        self.vm.isUserCurrentlyLoggedOut = false
-//                    })
-//                }
+                    .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: {
+                        self.vm.fetchCurrentUser()
+                    }) {
+                        AuthView(didCompleteLoginProcess: {
+                            self.vm.isUserCurrentlyLoggedOut = false
+                        })
+                    }
             Button {
                 shouldShowLogOutOptions.toggle()
             } label: {
@@ -145,13 +145,13 @@ struct ProfileView: View {
                 
             }
             //Раскомментировать перед использованием!!!
-            //                   .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: {
-            //                           self.vm.fetchCurrentUser()
-            //                              }) {
-            //                    AuthView(didCompleteLoginProcess: {
-            //                           self.vm.isUserCurrentlyLoggedOut = false
-            //                               })
-            //                           }
+                               .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut, onDismiss: {
+                                       self.vm.fetchCurrentUser()
+                                          }) {
+                                AuthView(didCompleteLoginProcess: {
+                                       self.vm.isUserCurrentlyLoggedOut = false
+                                           })
+                                       }
         }
     }.preferredColorScheme(.dark)
     

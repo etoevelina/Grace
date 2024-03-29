@@ -76,5 +76,11 @@ class ScheduleViewModel: ObservableObject {
             }
         }
     }
+    
+    func deleteTraining(atIndex index: Int) {
+        // Удаляем тренировку из массива trainingsForSelectedDate по индексу
+        trainingsForSelectedDate.remove(at: index)
+        // Здесь вы можете добавить логику для удаления тренировки из базы данных, если это необходимо
+    }
 
 }
