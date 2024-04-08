@@ -33,66 +33,73 @@ struct ProfileView: View {
                 
                 Form{
                     Section("Профиль"){
-                        NavigationLink("Просмотр и изменение личных данных"){
-                            // CurrentUserDataView()
-            NavigationView{
-                
-                ZStack{
-                    Image("backSch")
-                        .resizable()
-                        .frame(width: 393, height: 912)
-                        .padding(.top, 38)
-                    
-                    Rectangle()
-                        .colorMultiply(.black)
-                        .frame(width: 393, height: 892)
-                        .opacity(0.5)
-                    
-                    VStack{
                         
-                        VStack{
-                            Group {
-                                TextField("Name", text: $name)
-                                TextField("Surname", text: $surname)
-                                TextField("Email", text: $email)
-                                    .disabled(true)
-                            }.foregroundColor(.black)
-                                .onAppear {
-                                    name =  vm.user?.name ?? ""
-                                    surname =  vm.user?.surname ?? ""
-                                    email =  vm.user?.email ?? ""
+                            NavigationLink("Просмотр и изменение личных данных"){
+                                // CurrentUserDataView()
+                                NavigationView{
+                                    
+                                    ZStack{
+                                        Image("backSch")
+                                            .resizable()
+                                            .frame(width: 393, height: 912)
+                                            .padding(.top, 38)
+                                        
+                                        Rectangle()
+                                            .colorMultiply(.black)
+                                            .frame(width: 393, height: 892)
+                                            .opacity(0.5)
+                                        
+                                        VStack{
+                                            
+                                            VStack{
+                                                Group {
+                                                    TextField("Name", text: $name)
+                                                    TextField("Surname", text: $surname)
+                                                    TextField("Email", text: $email)
+                                                        .disabled(true)
+                                                }.foregroundColor(.black)
+                                                    .onAppear {
+                                                        name =  vm.user?.name ?? ""
+                                                        surname =  vm.user?.surname ?? ""
+                                                        email =  vm.user?.email ?? ""
+                                                    }
+                                                    .padding(20)
+                                                    .background(Color(.white))
+                                                    .cornerRadius(15)
+                                                    .frame(width: 300)
+                                                
+                                            }
+                                            Button{
+                                                updateProfile()
+                                            }label: {
+                                                Text("Сохранить данные")
+                                            }
+                                            .padding()
+                                            .alert(isPresented: $showAlert) {
+                                                Alert(title: Text("Сохранение данных"), message: Text(alertMessage), dismissButton: .default(Text("ОК")))
+                                            }
+                                        }
+                                        // .padding(.bottom,300)
+                                        
+                                        
+                                    }
+                                    
                                 }
-                                .padding(20)
-                                .background(Color(.white))
-                                .cornerRadius(15)
-                                .frame(width: 300)
+                            }
+                            
+                            if vm.user?.role == "Администратор" {
+                                NavigationLink("Добавить пользователя"){
+                                    RegView()
+                                }
+                                NavigationLink("Добавить новость"){
+                                    AddNewsView()
+                                }
+                                NavigationLink("Посмотреть статистику"){
+                                    StatisticView()
+                                }
+                                
                             
                         }
-                        Button{
-                            updateProfile()
-                        }label: {
-                            Text("Сохранить данные")
-                        }
-                        .padding()
-                        .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Сохранение данных"), message: Text(alertMessage), dismissButton: .default(Text("ОК")))
-                        }
-                    }
-                    // .padding(.bottom,300)
-                    
-                    
-                }
-                
-            }
-        }
-        
-        NavigationLink("Добавить пользователя"){
-            RegView()
-        }
-        NavigationLink("Добавить новость"){
-            AddNewsView()
-        }
-                        
     }
         Section("Управление"){
             Button {

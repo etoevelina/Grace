@@ -62,8 +62,9 @@ struct AddNewsView: View {
                         .frame(height: 60)
                     .opacity(name.isEmpty ? 0.5 : 1)
                 }
-                    .background(Color(.red))
+                .background(Color(.systemGray))
                     .cornerRadius(15)
+                    .padding(.horizontal)
                 
                 ZStack {
                            
@@ -73,8 +74,9 @@ struct AddNewsView: View {
                      .opacity(description.isEmpty ? 0.5 : 1)
                 }
                 .frame(height: 100)
-                .background(Color(.red))
+                .background(Color(.systemGray))
                 .cornerRadius(15)
+                .padding(.horizontal)
                // Spacer()
                 
                 
@@ -104,6 +106,7 @@ struct AddNewsView: View {
                                           )
                     )
                     .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.25), radius: 2, x: 10, y: 11)
+                    .padding(.horizontal)
                 }
                 Spacer()
             }

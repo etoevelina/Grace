@@ -11,6 +11,9 @@ import FirebaseFirestore
 
 
 struct TrainView: View {
+    @State private var showReviewSheet = false
+        @State private var rating = 0
+        @State private var reviewText = ""
     @ObservedObject var vm = MainPageViewViewModel()
     let training: Training
     @State private var trainerData: Trainer? = nil
@@ -107,7 +110,7 @@ struct TrainView: View {
                                     .font(.system(size: 18, weight: .bold))
                                    
                                 
-                                Text("9/\(training.amountOfPeople)")
+                                Text("\(training.amountOfPeople)")
                                     .font(.system(size: 11, weight: .bold))
                                     .foregroundColor(Color(red: 0.54, green: 0.54, blue: 0.54))
                                     .padding(.trailing, 55)
@@ -160,10 +163,12 @@ struct TrainView: View {
                                 //.padding(.bottom, 20)
                 }
                 Button {
-                } label: {
+                    showReviewSheet = true
+                       }
+                        label: {
                     HStack{
                         Spacer()
-                        Text("Записаться")
+                        Text("Добавить отзыв")
                             .foregroundColor(.black)
                             .padding(.vertical, 20)
                             .font(.system(size: 20, weight: .bold))
@@ -178,12 +183,17 @@ struct TrainView: View {
                     )
                     .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.25), radius: 2, x: 10, y: 11)
                 }.padding()
+                    .sheet(isPresented: $showReviewSheet) {
+                        ReviewSheetView(isPresented: $showReviewSheet, trainingName: training.name, trainerName: trainerData?.name ?? "", trainerSurname: trainerData?.surname ?? "", rating: $rating, reviewText: $reviewText, currentUserFirstName: vm.user?.name ?? "", currentUserLastName: vm.user?.surname ?? "")
+                            .presentationDetents([.medium])
+                    }
             }
             
         }.preferredColorScheme(.dark)
             .onAppear {
                         // Получаем данные о тренере при загрузке представления
                         getTrainerData()
+                            vm.fetchCurrentUser()
                     }
     }
    
@@ -191,7 +201,7 @@ struct TrainView: View {
 
 struct TrainView_Previews: PreviewProvider {
     static var previews: some View {
-        let exampleTraining = Training(id: "1", name: "Растяжка", date: Date(), time: Date(), amountOfPeople: 10, description: "Тренировка по растяжке включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки.", trainerSurname: "Клювина")
+        let exampleTraining = Training(id: "1", name: "Растяжка", date: Date(), time: Date(), amountOfPeople: 10, description: "Тренировка по растяжке включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки.", trainerSurname: "Клювина", imageName: "")
         return TrainView(training: exampleTraining)
         
     }

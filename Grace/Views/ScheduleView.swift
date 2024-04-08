@@ -171,12 +171,14 @@ struct ScheduleView: View {
         }
         
     }
-        NavigationLink {
-            AddNewTrainView()
-                .navigationTitle("Добавить занятие")
-                .navigationBarTitleDisplayMode(.large)
-        } label: {
-            Text("Добавить занятие")
+         if vm.user?.role == "Администратор" {
+            NavigationLink {
+                AddNewTrainView()
+                    .navigationTitle("Добавить занятие")
+                    .navigationBarTitleDisplayMode(.large)
+            } label: {
+                Text("Добавить занятие")
+            }
         }
     }
                    

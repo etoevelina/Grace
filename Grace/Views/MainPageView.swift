@@ -58,22 +58,25 @@ struct MainPageView: View {
                                 print("activity view appeared")
                             }
                     }
-                    
-                    Button {
-                        
-                    } label: {
+                    NavigationLink(destination: TrainingsCarousel()) {
                         ZStack{
                             Image("ButtonBottom")
                                 .resizable()
                                 .frame(width: 325, height: 192)
                             
-                            Text("Мои записи")
+                            Text("Тренировки")
                                 .font(.system(size: 30, weight: .bold))
                                 .foregroundColor(Color(red: 0, green: 0, blue: 0))
                                 .frame(width: 208, height: 74)
                                 .multilineTextAlignment(.leading)
                                 .padding(.trailing, 127)
                         }
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        
                     }
                     
                     

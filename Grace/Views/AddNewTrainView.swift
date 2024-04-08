@@ -19,6 +19,7 @@ struct Training: Identifiable, Codable {
     var amountOfPeople: Int
     var description: String
     var trainerSurname: String
+    var imageName: String
 
     
     enum CodingKeys: String, CodingKey {
@@ -29,6 +30,7 @@ struct Training: Identifiable, Codable {
         case amountOfPeople
         case description
         case trainerSurname
+        case imageName
     }
 }
 
@@ -51,7 +53,7 @@ enum Descriptions: String, CaseIterable, Identifiable{
         case .yoga:
             return "Тренировка по Йоге включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки."
         case .trx:
-            return "Тренировка по ТРХ включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки."
+            return "Тренировка по ТRХ включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки."
         case .functionalTrain:
             return "Тренировка по растяжке включает в себя общую растяжку всех основных групп мышц, таких как ноги, спина, плечи и шея. Упражнения выполняются плавно и удерживаются в течение 15-30 секунд для каждой группы мышц. Важно сосредоточиться на правильном дыхании и расслаблении во время растяжки."
         case .silovaya:
@@ -85,12 +87,25 @@ enum Trains: String, CaseIterable, Identifiable{
         case .trx:
             return "TRX"
         case .functionalTrain:
-            return "Функциональная тренировка"
+            return "Круговая тренировка"
         case .silovaya:
             return "Барре"
         }
     }
-    
+    var imageName: String { // Добавляем свойство для имени изображения
+            switch self {
+            case .stretching:
+                return "stretching" // Имя файла изображения для растяжки
+            case .yoga:
+                return "yoga" // Имя файла изображения для йоги
+            case .trx:
+                return "trx" // Имя файла изображения для TRX
+            case .functionalTrain:
+                return "functionalTrain" // Имя файла изображения для круговой тренировки
+            case .silovaya:
+                return "barre" // Имя файла изображения для барре
+            }
+        }
 }
 
 

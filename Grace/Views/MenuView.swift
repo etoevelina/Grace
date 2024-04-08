@@ -39,11 +39,11 @@ struct MenuView: View {
     
                 }
             //РАСКОММЕНТИРОВАТЬ ПЕРЕД ИСПОЛЬЗОВАНИЕ!!!!!!!
-                    .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut) {
-                        AuthView(didCompleteLoginProcess: {
-                    vm.isUserCurrentlyLoggedOut = false
-                })
-            }
+//                    .fullScreenCover(isPresented: $vm.isUserCurrentlyLoggedOut) {
+//                        AuthView(didCompleteLoginProcess: {
+//                    vm.isUserCurrentlyLoggedOut = false
+//                })
+//            }
         }
     }
 }

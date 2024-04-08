@@ -63,7 +63,8 @@ class ScheduleViewModel: ObservableObject {
                         amountOfPeople: data["Количество человек"] as? Int ?? 0,
                         // Добавляем проверку наличия описания тренировки в данных Firestore
                         description: data["описание"] as? String ?? "Описание отсутствует",
-                        trainerSurname: data["Тренер"] as? String ?? "Тренер отсутствует"
+                        trainerSurname: data["Тренер"] as? String ?? "Тренер отсутствует",
+                        imageName: data["Изображение"] as? String ?? "Изображение отсутсвует"
                     )
                     
                 

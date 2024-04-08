@@ -60,14 +60,13 @@ struct AuthView: View {
                             
                             
                             
+                            SecureField("Password", text: $password)
                             
                             
-                            
-                            TextField("Password", text: $password)
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .padding(20)
-                        .background(Color.white)
+                        .background(Color(.systemGray6))
                         .cornerRadius(15)
                         .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.25), radius: 2, x: 10, y: 11)
                         .padding(.bottom, 20)
