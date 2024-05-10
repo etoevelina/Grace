@@ -8,8 +8,8 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-struct New: Codable, Identifiable {
-    @DocumentID var id: String?
+struct New: Identifiable, Codable {
+    var id = UUID()
     var uid: String
     var name: String
     var description: String

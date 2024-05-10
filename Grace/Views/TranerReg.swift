@@ -10,14 +10,14 @@ import Firebase
 import FirebaseAuth
 
 struct TranerReg: View {
-    @State var email = ""
-    @State var password = ""
-    @State var name = ""
-    @State var surname = ""
-    @State var description = ""
-    @State var image: UIImage?
-    @State var loginStatusMessage = ""
-    @State var shouldShowImagePicker = false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var name = ""
+    @State private var surname = ""
+    @State private var description = ""
+    @State private var image: UIImage?
+    @State private var loginStatusMessage = ""
+    @State private var shouldShowImagePicker = false
     
     var body: some View {
         NavigationView{

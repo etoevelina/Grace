@@ -10,15 +10,17 @@ import Firebase
 
 struct ReviewSheetView: View {
     @Binding var isPresented: Bool
-    var trainingName: String
-    var trainerName: String
-    var trainerSurname: String
+     var trainingName: String
+     var trainerName: String
+     var trainerSurname: String
     @Binding var rating: Int
     @Binding var reviewText: String
-    var maxRating: Int = 5
-    var currentUserFirstName: String
-    var currentUserLastName: String
+     var maxRating: Int = 5
+     var currentUserFirstName: String
+     var currentUserLastName: String
     @State private var isAnonymous = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
      var currentUserFullName: String {
          "\(currentUserFirstName) \(currentUserLastName)"
@@ -79,6 +81,9 @@ struct ReviewSheetView: View {
         .padding()
     }
         .preferredColorScheme(.dark)
+        .alert(isPresented: $showAlert) {
+        Alert(title: Text("Сообщение"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+    }
         
     }
     func saveReview() {
@@ -99,15 +104,17 @@ struct ReviewSheetView: View {
         Firestore.firestore().collection("reviews").addDocument(data: reviewData) { error in
             if let error = error {
                 print(error.localizedDescription)
-                // Здесь можно добавить обработку ошибок, например, показать сообщение пользователю
+                alertMessage = "Ошибка добавления отзыва \(error)"
+                showAlert = true
             } else {
                 print("Отзыв успешно сохранён.")
-                // Закрываем модальное окно и очищаем форму
                 DispatchQueue.main.async {
                     isPresented = false
                     rating = 0
                     reviewText = ""
                 }
+                alertMessage = "Отзыв успешно добавлен"
+                showAlert = true
             }
         }
     }

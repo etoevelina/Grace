@@ -7,27 +7,13 @@
 
 import SwiftUI
 
-struct RoundedCornerShape: Shape { // 1
-    let radius: CGFloat
-    let corners: UIRectCorner
-
-    func path(in rect: CGRect) -> Path { // 2
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
-    }
-}
-
 
 struct AuthView: View {
     let didCompleteLoginProcess: () -> Void
     @State private var email = ""
     @State private var password = ""
     @State private var alertMessage = ""
-    @State var shouldShowAler = false
+    @State private var shouldShowAler = false
     
     var body: some View {
         
@@ -37,7 +23,7 @@ struct AuthView: View {
                 
                 
                 
-                Color.black.edgesIgnoringSafeArea(.all)
+                //Color.black.edgesIgnoringSafeArea(.all)
                 
                 Image("background")
                     .resizable()
@@ -96,7 +82,7 @@ struct AuthView: View {
                     
                 }
                 .padding()
-            }
+            }.preferredColorScheme(.dark)
         }.alert(isPresented: $shouldShowAler) {
             Alert(title: Text("Ошибка"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }

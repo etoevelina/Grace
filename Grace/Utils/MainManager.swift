@@ -16,55 +16,75 @@ class MainPageViewViewModel: ObservableObject{
     @Published var trainerLastNames: [String] = []
     @Published var showAlert = false
     @Published var alertMessage = ""
-    
-    
-    // @Published var isUserCurrentlyLoggedOut = false
-    
+    @Published var isLoading = false
     
     init() {
-        
-        DispatchQueue.main.async {
-            self.isUserCurrentlyLoggedOut = FirebaseManager.shared.auth.currentUser?.uid == nil
+            self.isUserCurrentlyLoggedOut = FirebaseManager.shared.auth.currentUser == nil
+            fetchCurrentUser()
         }
-        
-        fetchCurrentUser()
-    }
-    
-    func fetchCurrentUser() {
-        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
-            self.errorMessage = "Could not find firebase uid"
-            return
-        }
-        
-        FirebaseManager.shared.firestore.collection("users").document(uid).getDocument { snapshot, error in
-            if let error = error {
-                print("Failed to fetch current user:", error)
+
+        func fetchCurrentUser() {
+            guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+                self.isUserCurrentlyLoggedOut = true
                 return
             }
-            
-            self.user = try? snapshot?.data(as: User.self)
-            FirebaseManager.shared.currentUser = self.user
-            
-        }
-    }
-    
-    func handleSignOut() {
-        isUserCurrentlyLoggedOut.toggle()
-        try? FirebaseManager.shared.auth.signOut()
-    }
-    
-    func deleteUser() {
-        
-        let user = Auth.auth().currentUser
-        
-        user?.delete { error in
-            if let error = error {
-                print("An error happened: \(error.localizedDescription)")
-            } else {
-                print("Account deleted.")
+
+            FirebaseManager.shared.firestore.collection("users").document(uid).getDocument { snapshot, error in
+                if let error = error {
+                    print("Failed to fetch current user:", error)
+                    self.isUserCurrentlyLoggedOut = true
+                    return
+                }
+
+                guard let data = snapshot?.data() else {
+                    self.isUserCurrentlyLoggedOut = true
+                    return
+                }
+
+                self.user = try? snapshot?.data(as: User.self)
+                self.isUserCurrentlyLoggedOut = false
             }
         }
-    }
+
+        func handleSignOut() {
+            isLoading = true // Начало процесса выхода
+
+            do {
+                try FirebaseManager.shared.auth.signOut()
+                print("Successfully signed out.")
+                DispatchQueue.main.async {
+                    self.isUserCurrentlyLoggedOut = true
+                    self.isLoading = false // Конец процесса выхода
+                }
+            } catch let signOutError {
+                print("Error signing out: \(signOutError.localizedDescription)")
+                isLoading = false // Если произошла ошибка, обновляем состояние загрузки
+            }
+        }
+
+        func deleteUser() {
+            guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+                return
+            }
+
+            FirebaseManager.shared.firestore.collection("users").document(uid).delete { error in
+                if let error = error {
+                    print("Error deleting user: \(error)")
+                    return
+                }
+
+                FirebaseManager.shared.auth.currentUser?.delete { error in
+                    if let error = error {
+                        print("Error deleting auth user: \(error)")
+                        return
+                    }
+
+                    DispatchQueue.main.async {
+                        self.isUserCurrentlyLoggedOut = true
+                    }
+                }
+            }
+        }
     
     func getUsersWithRoleTrainer() {
            FirebaseManager.shared.firestore.collection(FirebaseConstants.users)

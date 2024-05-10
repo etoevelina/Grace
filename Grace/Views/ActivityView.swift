@@ -51,9 +51,6 @@ struct GoalSelectionView: View {
         print("Новая цель: \(goal)")
     }
 }
-
-
-
 struct ActivityView: View {
     @ObservedObject var manager = HealthManager()
 
@@ -81,9 +78,7 @@ struct ActivityView: View {
             
             HStack{
                ZStack{
-                   
-                   
-                    Ellipse()
+                  Ellipse()
                         .colorMultiply(Color(red: 0, green: 0.96, blue: 1)).opacity(0.74)
                         .frame(width: 176, height: 176)
                         .blur(radius: 52.5)
@@ -93,17 +88,8 @@ struct ActivityView: View {
                        .frame(width: 195, height: 195)
                    
                    RingView(ring: Ring(id: 1, wh: 130, target: CGFloat(goalForCalories), done: CGFloat(manager.caloriesToday), c1: "ColorCalories", c2: "ColorDarkBlue"), show: $show)
-                      
-                   
-                   
-                   RingView(ring: Ring(id: 0, wh: 176, target: CGFloat(goalForSteps), done: CGFloat(manager.stepsToday), c1: "ColorSteps", c2: "ColorDarkGreen"), show: $show)
-                     
-                   
-                  
-                   
+                  RingView(ring: Ring(id: 0, wh: 176, target: CGFloat(goalForSteps), done: CGFloat(manager.stepsToday), c1: "ColorSteps", c2: "ColorDarkGreen"), show: $show)
                 }.padding(.leading, 30)
-                
-                
                  Spacer()
                 VStack(spacing: 10) {
                     ActivityCard(activity: Activity(id: 0, title: "Шаги сегодня", subtitle: "Цель: \(goalForSteps) шагов", image: "figure.walk", amount: String(manager.stepsToday), background: "", fieldForText: "ColorSteps", ramka: "GreenRam", shade: "ColorShadeSteps"))
@@ -158,8 +144,6 @@ struct ActivityView: View {
                 }
             }
 }
-
-
 
 #Preview {
     ActivityView(show: .constant(true))

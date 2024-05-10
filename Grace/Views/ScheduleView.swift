@@ -67,13 +67,15 @@ struct ScheduleView: View {
             ZStack {
                 Image("backSch")
                     .resizable()
-                    .frame(width: 393, height: 892)
-                    .padding(.top, 38)
+                    .frame(width: 413, height: 902)
+                    .ignoresSafeArea()
                 
                 Rectangle()
                     .colorMultiply(.black)
-                    .frame(width: 393, height: 892)
+                    .frame(width: 413, height: 902)
                     .opacity(0.5)
+                    .ignoresSafeArea()
+                    
                 
                 VStack(spacing: 0){
                     HStack(spacing: -15){
@@ -136,8 +138,9 @@ struct ScheduleView: View {
                     ZStack{
                         Rectangle()
                             .stroke(Color(red: 1, green: 1, blue: 1), lineWidth: 1)
-                            .frame(width: 399, height: 62)
+                            .frame(width: 453, height: 62)
                             .background(Color(.black).opacity(0.3))
+                            .ignoresSafeArea()
                         //.opacity(0.3)
                         HStack{
                             Text("\(formattedTime(from: training.time))")

@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 struct MainPageView: View {
     @ObservedObject private var vm = MainPageViewViewModel()
     @ObservedObject var manager = HealthManager()
-    @State var show = false
+    @State private var show = false
     
     var body: some View {
         

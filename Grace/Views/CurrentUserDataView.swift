@@ -10,9 +10,9 @@ import SwiftUI
 struct CurrentUserDataView: View {
     
     @ObservedObject var vm = MainPageViewViewModel()
-    @State var name = ""
-    @State var surname = ""
-    @State var email = ""
+    @State private var name = ""
+    @State private var surname = ""
+    @State private var email = ""
     
     var body: some View {
         

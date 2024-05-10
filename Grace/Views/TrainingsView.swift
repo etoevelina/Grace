@@ -73,7 +73,7 @@ struct StarRatingView: View {
                     
                     Image("backSch")
                         .resizable()
-                        .frame(width: 393, height: 895)
+                        .frame(width: 413, height: 902)
                         .ignoresSafeArea()
                         .opacity(0.6)
                     
@@ -302,7 +302,7 @@ struct TrainingsCarousel: View {
             
             Image("backSch")
                 .resizable()
-                .frame(width: 393, height: 895)
+                .frame(width: 413, height: 902)
                 .ignoresSafeArea()
                 .opacity(0.6)
             

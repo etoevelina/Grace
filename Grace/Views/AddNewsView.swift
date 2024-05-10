@@ -8,23 +8,25 @@
 import SwiftUI
 
 struct AddNewsView: View {
-    @State var description = ""
-    @State var name = ""
+    @State private var description = ""
+    @State private var name = ""
     @State private var image: UIImage?
     @State private var shouldShowImagePicker = false
-    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     var body: some View {
         
         ZStack {
             Color(.black).ignoresSafeArea()
             Image("backSch")
                 .resizable()
-                .frame(width: 393, height: 892)
-                .padding(.top, 38)
+                .frame(width: 413, height: 902)
+                .ignoresSafeArea()
             
             Rectangle()
                 .colorMultiply(.black)
-                .frame(width: 393, height: 892)
+                .frame(width: 413, height: 902)
+                .ignoresSafeArea()
                 .opacity(0.5)
             VStack {
                 
@@ -49,11 +51,8 @@ struct AddNewsView: View {
                                 .font(.system(size: 80))
                                 .padding()
                                 .foregroundColor(.white)
-                            
-                                
                         }
                     }
-                    
                 }
                 
                 ZStack{
@@ -77,17 +76,8 @@ struct AddNewsView: View {
                 .background(Color(.systemGray))
                 .cornerRadius(15)
                 .padding(.horizontal)
-               // Spacer()
-                
-                
-                
                 Button {
-                    let new = New(uid: "user_id", name: name, description: description, profileImageUrl: "", creationDate: Date())
-                    if self.image != nil {
-                           persistImageToStorage(uid: new.uid)
-                       } else {
-                           addNew(new: new)
-                       }
+                    addNew()
                         
                 } label: {
                     HStack{
@@ -122,56 +112,78 @@ struct AddNewsView: View {
             ImagePicker(image: $image)
                 .ignoresSafeArea()
         }
-    }
-    
-    func addNew(new: New) {
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Сообщение"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }  
+    func addNew() {
         let db = FirebaseManager.shared.firestore
         let newsCollection = db.collection("news")
         
-        do {
-            // Добавление новой новости в коллекцию "news"
-            try newsCollection.addDocument(from: new)
-        } catch let error {
-            print("Error adding document: \(error)")
+        // Создаем новый документ в коллекции "news" и получаем его ID
+        let newDocRef = newsCollection.document()
+        let uid = newDocRef.documentID
+        
+        if let image = self.image {
+            persistImageToStorage(uid: uid) { imageUrl in
+                let new = New(uid: uid, name: self.name, description: self.description, profileImageUrl: imageUrl, creationDate: Date())
+                saveNewToFirestore(new: new)
+            }
+        } else {
+            let new = New(uid: uid, name: self.name, description: self.description, profileImageUrl: "", creationDate: Date())
+            saveNewToFirestore(new: new)
         }
     }
-    @State var loginStatusMessage = ""
-    private func persistImageToStorage(uid: String) {
+    
+    private func persistImageToStorage(uid: String, completion: @escaping (String) -> Void) {
         guard let image = self.image,
               let imageData = image.jpegData(compressionQuality: 0.5) else {
-            loginStatusMessage = "Image is missing or invalid"
+            print("Image is missing or invalid")
             return
         }
         
         let ref = FirebaseManager.shared.storage.reference(withPath: uid)
         ref.putData(imageData, metadata: nil) { metadata, err in
             if let err = err {
-                loginStatusMessage = "Failed to push image to Storage: \(err.localizedDescription)"
+                print("Failed to push image to Storage: \(err.localizedDescription)")
                 return
             }
             
             ref.downloadURL { url, err in
                 if let err = err {
-                    loginStatusMessage = "Failed to retrieve download URL: \(err.localizedDescription)"
+                    print("Failed to retrieve download URL: \(err.localizedDescription)")
                     return
                 }
                 
                 guard let url = url else {
-                    loginStatusMessage = "Download URL is nil"
+                    print("Download URL is nil")
                     return
                 }
                 
-                loginStatusMessage = "Successfully stored image with URL: \(url.absoluteString)"
-                
-                // Создание экземпляра New
-                let new = New(uid: "user_id", name: self.name, description: self.description, profileImageUrl: url.absoluteString, creationDate: Date())
-                
-                // Добавление новости
-                addNew(new: new)
+                print("Successfully stored image with URL: \(url.absoluteString)")
+                completion(url.absoluteString)
             }
         }
     }
-
+    
+    private func saveNewToFirestore(new: New) {
+        let db = FirebaseManager.shared.firestore
+        let newsCollection = db.collection("news")
+        
+        do {
+            try newsCollection.document(new.uid).setData(from: new) { err in
+            if let err = err {
+                alertMessage = "Ошибка при добавлении новости: \(err.localizedDescription)"
+                showAlert = true
+            } else {
+                alertMessage = "Новость успешно добавлена!"
+                showAlert = true
+            }
+        }
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
 }
 private struct DescriptionPlaceholder: View {
     var body: some View {

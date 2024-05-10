@@ -37,13 +37,13 @@ struct RegView: View {
     @State private var surname = ""
     @State private var image: UIImage?
     @State private var description = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
 //        NavigationView {
             ScrollView{
                 ZStack {
-                
-                    
                     VStack (spacing: 70) {
                     HStack {
                         Picker("Название:", selection: $userType) {
@@ -66,9 +66,7 @@ struct RegView: View {
                                 TextField("Имя", text: $name)
                                 
                                 TextField("Фамилия", text: $surname)
-                                
-                                
-                            }
+                          }
                             .foregroundColor(.white)
                             .padding(20)
                             .background(Color(.systemGray6))
@@ -137,10 +135,14 @@ struct RegView: View {
             }
         
 //        } 
-        .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
-            ImagePicker(image: $image)
-                .ignoresSafeArea()
-        }
+            .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
+                ImagePicker(image: $image)
+                    .ignoresSafeArea()
+            }
+                .alert(isPresented: $showAlert) {
+                Alert(title: Text("Сообщение"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+        
     }
     
     @State private var loginStatusMessage = ""
@@ -151,16 +153,18 @@ struct RegView: View {
             return
         }
         
-        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
-            if let err = err {
-                loginStatusMessage = "Failed to create user: \(err.localizedDescription)"
-                return
-            }
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { authResult, err in
+                if let err = err {
+                    loginStatusMessage = "Failed to create user: \(err.localizedDescription)"
+                    alertMessage = "Ошибка создания пользователя \(err)"
+                    showAlert = true
+                    return
+                }
             
-            guard let uid = result?.user.uid else {
-                loginStatusMessage = "Failed to retrieve user ID"
-                return
-            }
+            guard let uid = authResult?.user.uid else {
+                        loginStatusMessage = "Failed to retrieve user ID"
+                        return
+                    }
             
             loginStatusMessage = "Successfully created user: \(uid)"
             
@@ -219,15 +223,18 @@ struct RegView: View {
             .document(uid).setData(userData) { err in
                 if let err = err {
                     loginStatusMessage = "Failed to store user information: \(err.localizedDescription)"
+                    alertMessage = "Польвотель не был добавлен. Ошибка \(err)"
+                    showAlert = true
                     return
+                } else {
+                    alertMessage = "Пользователь с ролью \"\(userType.title)\" был успешно добавлен"
+                    showAlert = true
                 }
                 
                 loginStatusMessage = "User information stored successfully"
             }
     }
 }
-
-
 #Preview {
     RegView()
 }

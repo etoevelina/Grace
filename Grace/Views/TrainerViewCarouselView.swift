@@ -11,7 +11,8 @@ struct TrainerViewCarouselView: View {
         ZStack {
             Image("backSch")
                 .resizable()
-                .frame(width: 393, height: 892)
+                .frame(width: 413, height: 902)
+                .ignoresSafeArea()
                 
             VStack{
                 GeometryReader { reader in
@@ -78,17 +79,26 @@ struct CarouselView: View {
                             .stroke(Color(.label), lineWidth: 1)
                         )
                         
-                       
-                            Text("\(trainer.name)\n\(trainer.surname)")
-                                .padding()
-                                .foregroundColor(.white)
-                                .font(.system(size: 50, weight: .bold))
-                                .italic()
+                        VStack (alignment: .leading, spacing: -25){
+                            Group{
+                                Text("\(trainer.name)")
+                                    
+                                Text("\(trainer.surname)")
+                                    .padding(.trailing)
+                            }
+                            .foregroundColor(.white)
+                            .font(.system(size: 45, weight: .bold))
+                            .italic()
+                            .padding()
+                        }
+                        .lineLimit(1) // Отмена ограничения количества строк
+                        .minimumScaleFactor(0.5)
+                         //   Text("\(trainer.name)\n\(trainer.surname)")
                                 .background(Color.black)
                                 .cornerRadius(43)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(nil) // Отмена ограничения количества строк
-                                .minimumScaleFactor(0.5)
+                            
+                               
+                                
                         
                         .padding(.top, 185)
                         .padding(.trailing, 150)

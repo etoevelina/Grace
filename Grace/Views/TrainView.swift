@@ -11,12 +11,12 @@ import FirebaseFirestore
 
 
 struct TrainView: View {
-    @State private var showReviewSheet = false
-        @State private var rating = 0
-        @State private var reviewText = ""
+    @State  var showReviewSheet = false
+        @State  var rating = 0
+        @State  var reviewText = ""
     @ObservedObject var vm = MainPageViewViewModel()
     let training: Training
-    @State private var trainerData: Trainer? = nil
+    @State  var trainerData: Trainer? = nil
     let timeFormatter: DateFormatter = {
             let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
@@ -53,13 +53,13 @@ struct TrainView: View {
         ZStack{
             Image("backSch")
                 .resizable()
-                .frame(width: 393, height: 892)
-                .padding(.top, 38)
+                .frame(width: 413, height: 902)
+                .ignoresSafeArea()
             
             ZStack {
                 Rectangle()
                     .colorMultiply(.black)
-                    .frame(width: 393, height: 892)
+                    .frame(width: 413, height: 902)
                     .opacity(0.5)
                     .clipShape( // 1
                         RoundedCornerShape( // 2
@@ -120,7 +120,7 @@ struct TrainView: View {
                         
                     }
                   
-                }.padding(.leading,190)
+                }.padding(.leading,220)
                 
                 if !training.description.isEmpty {
                     Text("\(training.description)")
@@ -162,31 +162,34 @@ struct TrainView: View {
                                 .padding()
                                 //.padding(.bottom, 20)
                 }
-                Button {
-                    showReviewSheet = true
-                       }
-                        label: {
-                    HStack{
-                        Spacer()
-                        Text("Добавить отзыв")
-                            .foregroundColor(.black)
-                            .padding(.vertical, 20)
-                            .font(.system(size: 20, weight: .bold))
-                        Spacer()
-                    }
-                    .background(Color(red: 0.92, green: 0.6, blue: 1))
-                    .clipShape( // 1
-                        RoundedCornerShape( // 2
-                            radius: 20,
-                            corners: [.bottomLeft, .bottomRight, .topRight]
-                                          )
-                    )
-                    .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.25), radius: 2, x: 10, y: 11)
-                }.padding()
-                    .sheet(isPresented: $showReviewSheet) {
-                        ReviewSheetView(isPresented: $showReviewSheet, trainingName: training.name, trainerName: trainerData?.name ?? "", trainerSurname: trainerData?.surname ?? "", rating: $rating, reviewText: $reviewText, currentUserFirstName: vm.user?.name ?? "", currentUserLastName: vm.user?.surname ?? "")
-                            .presentationDetents([.medium])
-                    }
+                if vm.user?.role == "Клиент" {
+                    Button {
+                        showReviewSheet = true
+                           }
+                            label: {
+                        HStack{
+                            Spacer()
+                            Text("Добавить отзыв")
+                                .foregroundColor(.black)
+                                .padding(.vertical, 20)
+                                .font(.system(size: 20, weight: .bold))
+                            Spacer()
+                        }
+                        .background(Color(red: 0.92, green: 0.6, blue: 1))
+                        .clipShape( // 1
+                            RoundedCornerShape( // 2
+                                radius: 20,
+                                corners: [.bottomLeft, .bottomRight, .topRight]
+                                              )
+                        )
+                        .shadow(color: Color(red: 0, green: 0, blue: 0).opacity(0.25), radius: 2, x: 10, y: 11)
+                    }.padding()
+                        .sheet(isPresented: $showReviewSheet) {
+                            ReviewSheetView(isPresented: $showReviewSheet, trainingName: training.name, trainerName: trainerData?.name ?? "", trainerSurname: trainerData?.surname ?? "", rating: $rating, reviewText: $reviewText, currentUserFirstName: vm.user?.name ?? "", currentUserLastName: vm.user?.surname ?? "")
+                                .presentationDetents([.medium])
+                        }
+                }
+                
             }
             
         }.preferredColorScheme(.dark)

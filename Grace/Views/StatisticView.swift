@@ -169,12 +169,15 @@ struct StatisticView: View {
                     
                     Button("Создать PDF и загрузить") {
                         createAndUploadPDF()
+                        
                     }
                     .padding()
                     
                     if let pdfURL = pdfURL {
                         Link("Скачать PDF", destination: pdfURL)
                             .padding()
+                        
+                        
                     }
                 }
                 .navigationTitle("Статистика работы")
@@ -248,6 +251,7 @@ struct StatisticView: View {
         let pdfURL = createPDF()
         uploadPDFToFirebase(pdfURL: pdfURL) { url in
             self.pdfURL = url
+            print("\(pdfURL)")
         }
     }
 
@@ -323,19 +327,25 @@ struct StatisticView: View {
                 }
             }
             .chartXAxis {
-                AxisMarks(preset: .aligned, position: .bottom) {
-                    AxisGridLine()
-                    AxisTick()
-                    AxisValueLabel(format: .dateTime.day().month())
-                }
-            }
-            .chartYAxis {
-                AxisMarks(position: .leading) {
-                    AxisGridLine()
-                    AxisTick()
-                    AxisValueLabel()
-                }
-            }
+                        AxisMarks(preset: .aligned, position: .bottom) {
+                            AxisGridLine()
+                                .foregroundStyle(Color.gray) // цвет сетки по оси X
+                            AxisTick()
+                                .foregroundStyle(Color.gray) // цвет меток по оси X
+                            AxisValueLabel(format: .dateTime.day().month())
+                                .foregroundStyle(Color.gray) // цвет подписей по оси X
+                        }
+                    }
+                    .chartYAxis {
+                        AxisMarks(position: .leading) {
+                            AxisGridLine()
+                                .foregroundStyle(Color.gray) // цвет сетки по оси Y
+                            AxisTick()
+                                .foregroundStyle(Color.gray) // цвет меток по оси Y
+                            AxisValueLabel()
+                                .foregroundStyle(Color.gray) // цвет подписей по оси Y
+                        }
+                    }
             .chartYScale(domain: 1...5)
             .frame(width: 380, height: 300)
         )
@@ -363,6 +373,7 @@ struct StatisticView: View {
                 }
                 .font(.system(size: 13, weight: .medium))
                 .italic()
+                .foregroundColor(.black)
             }
             
         })
